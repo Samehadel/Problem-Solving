@@ -41,13 +41,13 @@ public class Permutations {
             //Recurse
             List<List<Integer>> perms = permute(nums);
 
-            for (int j = 0; j < perms.size(); j++) {
+            for (int j = 0; j < perms.size(); j++) 
                 perms.get(j).add(n);
-            }
+            
 
-            for (int k = 0; k < perms.size(); k++) {
+            for (int k = 0; k < perms.size(); k++) 
                 result.add(perms.get(k));
-            }
+            
             nums.add(n);
 
         }
