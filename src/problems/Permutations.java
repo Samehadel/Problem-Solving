@@ -1,51 +1,58 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package problems;
+
+/*
+Problem:
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+ */
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author ALKODS
- */
 public class Permutations {
-    
-    
-    public static List<List<Integer>> permute(int[] nums) {
-        int n = nums.length;
-        int period = factorial(n) / n;
-        int c = 0;
-        boolean lock = true;
-        
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> paths = fillInitial(n);
-        
-        
-        
-        
-        
-        for(int i = 0; i < period; i++){
-           
+
+    public List<List<Integer>> permute(int[] nums) {
+
+        List<Integer> array = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            array.add(nums[i]);
         }
+
+        return permute(array);
+    }
+
+    public List<List<Integer>> permute(List<Integer> nums) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        //Base Case
+        if (nums.size() == 1) {
+            List<Integer> base = new ArrayList<>();
+            List<List<Integer>> baseBack = new ArrayList<>();
+
+            base.add(nums.get(0));
+            baseBack.add(base);
+            return baseBack;
+        }
+
+        for (int i = 0; i < nums.size(); i++) {
+            //Drop first element
+            int n = nums.remove(0);
+
+            //Recurse
+            List<List<Integer>> perms = permute(nums);
+
+            for (int j = 0; j < perms.size(); j++) {
+                perms.get(j).add(n);
+            }
+
+            for (int k = 0; k < perms.size(); k++) {
+                result.add(perms.get(k));
+            }
+            nums.add(n);
+
+        }
+
         return result;
     }
-    public static List<Integer> fillInitial(int n){
-        List<Integer> list = new ArrayList<>();
-        for(int i = 0; i < n; i++)
-            list.add(i);
-            
-        return list;
-    }
-    public static int factorial(int n) {
-    int fact = 1;
-    for (int i = 2; i <= n; i++) {
-        fact = fact * i;
-    }
-    return fact;
-}
-    
+
 }
